@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:parkinsons_detection_app/services/auth.dart';
 import 'package:parkinsons_detection_app/screens/info/personal_info_page.dart';
 import 'package:parkinsons_detection_app/screens/info/medical_history_page.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,6 +16,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final user = Provider.of<User>(context);
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(

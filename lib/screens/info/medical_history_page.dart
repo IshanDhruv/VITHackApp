@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:parkinsons_detection_app/screens/profile/profile_page.dart';
+import 'package:provider/provider.dart';
 
 class MedicalHistoryPage extends StatefulWidget {
   @override
@@ -38,6 +41,9 @@ class _MedicalHistoryPageState extends State<MedicalHistoryPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final user = Provider.of<User>(context);
+
     return Container(
       margin: EdgeInsets.all(20),
       child: Column(
@@ -91,14 +97,19 @@ class _MedicalHistoryPageState extends State<MedicalHistoryPage> {
               )),
           SizedBox(height: 20),
           CheckboxListTile(
-            title: Text("I have reviewed the information on this page and it is accurate to the best of my knowledge"),
+              title: Text(
+                  "I have reviewed the information on this page and it is accurate to the best of my knowledge"),
               value: _finalCheck,
               onChanged: (bool value) {
                 setState(() {
                   _finalCheck = value;
                 });
               }),
-          Center(child: RaisedButton(child: Text("Proceed"), onPressed: showBottomPanel,))
+          Center(
+              child: RaisedButton(
+            child: Text("Proceed"),
+            onPressed: () => showBottomPanel(user),
+          ))
         ],
       ),
     );
@@ -107,12 +118,11 @@ class _MedicalHistoryPageState extends State<MedicalHistoryPage> {
   _imgFromGallery() async {
     var image = await ImagePicker().getImage(source: ImageSource.gallery);
     setState(() {
-      if(image != null)
-        _image = File(image.path);
+      if (image != null) _image = File(image.path);
     });
   }
 
-  void showBottomPanel() {
+  void showBottomPanel(User user) {
     //Creates bottom sheet for user to enter his data
     showModalBottomSheet(
         context: context,
@@ -120,21 +130,27 @@ class _MedicalHistoryPageState extends State<MedicalHistoryPage> {
           return Container(
             padding: EdgeInsets.symmetric(vertical: 30, horizontal: 60),
             child: Column(
-//              mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                     "I understand that this information will be used by the app "
-                        "to help determine appropriate diagnosis and treatment. "
-                        "If there is any change in my medical status, "
-                        "I will make the neccary changes."),
+                    "to help determine appropriate diagnosis and treatment. "
+                    "If there is any change in my medical status, "
+                    "I will make the neccary changes."),
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    RaisedButton(child: Text("Go Back"),onPressed: () {}),
-                    RaisedButton(child: Text("Yes, Confirm"),onPressed: () {}),
+                    RaisedButton(child: Text("Go Back"), onPressed: () {}),
+                    RaisedButton(
+                        child: Text("Yes, Confirm"),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProfilePage(user: user,)));
+                        }),
                   ],
                 )
               ],

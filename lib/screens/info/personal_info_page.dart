@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class PersonalInfoPage extends StatefulWidget {
   @override
@@ -17,6 +19,9 @@ class _PersonalInfoPageState extends State<PersonalInfoPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final user = Provider.of<User>(context);
+
     _dateController = TextEditingController();
     _dateController.text = DateFormat().add_yMMMMd().format(_selectedDate);
 
