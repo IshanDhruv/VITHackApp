@@ -159,7 +159,7 @@ class _MedicalHistoryPageState extends State<MedicalHistoryPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomePage(user : user)));
+                                  builder: (context) => HomePage()));
                         }),
                   ],
                 )
