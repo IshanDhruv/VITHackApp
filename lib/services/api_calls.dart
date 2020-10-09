@@ -34,12 +34,12 @@ class APICalls {
     final url = uri + notificationsRoute;
     try {
       final response =
-      await http.get(url, headers: {"Accept": "application/json"});
+          await http.get(url, headers: {"Accept": "application/json"});
       print(response.statusCode);
       switch (response.statusCode) {
         case 200:
           return ApiResponse.completed(
-              NotificationClass.fromJson(json.decode(response.body)))
+                  NotificationClass.fromJson(json.decode(response.body)))
               .data;
       }
     } catch (e) {
@@ -52,12 +52,13 @@ class APICalls {
     final url = uri + hospitalsGroup + bedsRoute;
     try {
       final response =
-      await http.get(url, headers: {"Accept": "application/json"});
+          await http.get(url, headers: {"Accept": "application/json"});
       print(response.statusCode);
       switch (response.statusCode) {
         case 200:
+          print(json.decode(response.body)['data']['sources']);
           return ApiResponse.completed(
-              Beds.fromJson(json.decode(response.body)))
+                  Beds.fromJson(json.decode(response.body)))
               .data;
       }
     } catch (e) {
@@ -70,12 +71,12 @@ class APICalls {
     final url = uri + hospitalsGroup + collegesRoute;
     try {
       final response =
-      await http.get(url, headers: {"Accept": "application/json"});
+          await http.get(url, headers: {"Accept": "application/json"});
       print(response.statusCode);
       switch (response.statusCode) {
         case 200:
           return ApiResponse.completed(
-              MedicalColleges.fromJson(json.decode(response.body)))
+                  MedicalColleges.fromJson(json.decode(response.body)))
               .data;
       }
     } catch (e) {

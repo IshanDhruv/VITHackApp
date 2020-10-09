@@ -10,7 +10,10 @@ class MedicalCollegesPage extends StatefulWidget {
 class _MedicalCollegesPageState extends State<MedicalCollegesPage> {
   APICalls apiCalls = APICalls();
   bool _isLoading = true;
-  MedicalColleges colleges;
+  MedicalColleges medicalColleges;
+  List colleges;
+  List states = ['Choose a state'];
+  String state = 'Choose a state';
 
   @override
   void initState() {
@@ -22,10 +25,19 @@ class _MedicalCollegesPageState extends State<MedicalCollegesPage> {
     setState(() {
       _isLoading = true;
     });
-    colleges = await apiCalls.getMedicalColleges();
+    medicalColleges = await apiCalls.getMedicalColleges();
+    colleges = medicalColleges.medicalColleges;
+    getStates();
     setState(() {
       _isLoading = false;
     });
+  }
+
+  getStates() {
+    colleges.forEach((element) {
+      if (!states.contains(element['state'])) states.add(element['state']);
+    });
+    print(states);
   }
 
   @override
@@ -33,20 +45,47 @@ class _MedicalCollegesPageState extends State<MedicalCollegesPage> {
     return _isLoading == true
         ? Center(child: CircularProgressIndicator())
         : SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: PageScrollPhysics(),
-                  itemCount: colleges.medicalColleges.length,
-                  itemBuilder: (context, index) {
-                    return Text(colleges.medicalColleges[index]["state"]);
-                  },
-                )
-              ],
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(),
+                  DropdownButton(
+//                    hint: Text('States'),
+                    value: state,
+                    onChanged: (val) {
+                      setState(() {
+                        state =  val;
+                      });
+                    },
+                    items: states.map((sstate) {
+                      return DropdownMenuItem(
+                        child: new Text(sstate),
+                        value: sstate,
+                      );
+                    }).toList(),
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: PageScrollPhysics(),
+                    itemCount: medicalColleges.medicalColleges.length,
+                    itemBuilder: (context, index) {
+                      if (colleges[index]['state'] == state)
+                        return Text(colleges[index]["state"]);
+                      return Container();
+                    },
+                  )
+                ],
+              ),
             ),
           );
+  }
+
+  stateRow(var college){
+    return Row(
+      children: [
+      ],
+    );
   }
 }
