@@ -56,7 +56,6 @@ class APICalls {
       print(response.statusCode);
       switch (response.statusCode) {
         case 200:
-          print(json.decode(response.body)['data']['sources']);
           return ApiResponse.completed(
                   Beds.fromJson(json.decode(response.body)))
               .data;

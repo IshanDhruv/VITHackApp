@@ -12,7 +12,8 @@ class _BedsPageState extends State<BedsPage> {
   APICalls apiCalls = APICalls();
   Beds beds;
   bool _isLoading = true;
-  List json = [];
+  List regionalJson = [];
+  List summary = [];
 
   @override
   void initState() {
@@ -25,7 +26,7 @@ class _BedsPageState extends State<BedsPage> {
       _isLoading = true;
     });
     beds = await apiCalls.getBeds();
-    json = beds.regional;
+    regionalJson = beds.regional;
     setState(() {
       _isLoading = false;
     });
@@ -42,10 +43,20 @@ class _BedsPageState extends State<BedsPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(),
+                  Row(
+                    children: [
+                      Text(beds.summary['ruralHospitals'].toString()),
+                      Text(beds.summary['ruralBeds'].toString()),
+                      Text(beds.summary['urbanHospitals'].toString()),
+                      Text(beds.summary['urbanBeds'].toString()),
+                      Text(beds.summary['totalHospitals'].toString()),
+                      Text(beds.summary['totalBeds'].toString()),
+                    ],
+                  ),
                   JsonTable(
-                    json,
+                    regionalJson,
                     showColumnToggle: true,
-                  )
+                  ),
                 ],
               ),
             ),

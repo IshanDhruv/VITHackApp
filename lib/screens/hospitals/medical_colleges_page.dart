@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:json_table/json_table.dart';
 import 'package:parkinsons_detection_app/models/medical_colleges.dart';
 import 'package:parkinsons_detection_app/services/api_calls.dart';
 
@@ -12,6 +13,7 @@ class _MedicalCollegesPageState extends State<MedicalCollegesPage> {
   bool _isLoading = true;
   MedicalColleges medicalColleges;
   List colleges;
+  List collegesJson;
   List states = ['Choose a state'];
   String state = 'Choose a state';
 
@@ -52,11 +54,11 @@ class _MedicalCollegesPageState extends State<MedicalCollegesPage> {
                 children: [
                   Container(),
                   DropdownButton(
-//                    hint: Text('States'),
                     value: state,
                     onChanged: (val) {
                       setState(() {
-                        state =  val;
+                        state = val;
+                        collegesJson = colleges.where((element) => element['state'] == state);
                       });
                     },
                     items: states.map((sstate) {
@@ -66,26 +68,20 @@ class _MedicalCollegesPageState extends State<MedicalCollegesPage> {
                       );
                     }).toList(),
                   ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: PageScrollPhysics(),
-                    itemCount: medicalColleges.medicalColleges.length,
-                    itemBuilder: (context, index) {
-                      if (colleges[index]['state'] == state)
-                        return Text(colleges[index]["state"]);
-                      return Container();
-                    },
-                  )
+                  JsonTable(colleges)
+//                  ListView.builder(
+//                    shrinkWrap: true,
+//                    physics: PageScrollPhysics(),
+//                    itemCount: medicalColleges.medicalColleges.length,
+//                    itemBuilder: (context, index) {
+//                      if (colleges[index]['state'] == state)
+//                        return stateRow(state);
+//                      return Container();
+//                    },
+//                  )
                 ],
               ),
             ),
           );
-  }
-
-  stateRow(var college){
-    return Row(
-      children: [
-      ],
-    );
   }
 }

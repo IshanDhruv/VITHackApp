@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:json_table/json_table.dart';
 import 'package:parkinsons_detection_app/models/contact.dart';
 import 'package:parkinsons_detection_app/services/api_calls.dart';
 
@@ -35,26 +36,30 @@ class _ContactPageState extends State<ContactPage> {
     return _isLoading == true
         ? Center(child: CircularProgressIndicator())
         : SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(),
-                Text("Call us at"),
-                Text(primary.number),
-                Text("Call us at (toll free)"),
-                Text(primary.numberTollFree),
-                Text(primary.email),
-                Text(primary.twitter),
-                Text(primary.facebook),
-                Text(primary.media),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: contact.regional.length,
-                  itemBuilder: (context, index) {
-                    return Text(contact.regional[index]["loc"]);
-                  },
-                )
-              ],
+            child: Container(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(),
+                  Text("Call us at"),
+                  Text(primary.number),
+                  Text("Call us at (toll free)"),
+                  Text(primary.numberTollFree),
+                  Text(primary.email),
+                  Text(primary.twitter),
+                  Text(primary.facebook),
+                  Text(primary.media),
+                  JsonTable(contact.regional),
+//                ListView.builder(
+//                  shrinkWrap: true,
+//                  itemCount: contact.regional.length,
+//                  itemBuilder: (context, index) {
+//                    return Text(contact.regional[index]["loc"]);
+//                  },
+//                )
+                ],
+              ),
             ),
           );
   }

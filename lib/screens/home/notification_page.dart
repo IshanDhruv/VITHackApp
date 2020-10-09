@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:json_table/json_table.dart';
 import 'package:parkinsons_detection_app/models/notification.dart';
 import 'package:parkinsons_detection_app/services/api_calls.dart';
 
@@ -34,18 +35,15 @@ class _NotificationPageState extends State<NotificationPage> {
     return _isLoading == true
         ? Center(child: CircularProgressIndicator())
         : SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(),
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: notification.notifications.length,
-                  itemBuilder: (context, index) {
-                    return Text(notification.notifications[index]["title"]);
-                  },
-                )
-              ],
+            child: Container(
+              padding: EdgeInsets.all(25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(),
+                  JsonTable(notification.notifications),
+                ],
+              ),
             ),
           );
   }
