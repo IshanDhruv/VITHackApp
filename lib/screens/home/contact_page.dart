@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:json_table/json_table.dart';
 import 'package:parkinsons_detection_app/models/contact.dart';
 import 'package:parkinsons_detection_app/services/api_calls.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactPage extends StatefulWidget {
   @override
@@ -38,26 +39,44 @@ class _ContactPageState extends State<ContactPage> {
         : SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.all(20),
+              color: Colors.blue,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(),
-                  Text("Call us at"),
+                  Text("Contacts & helpline"),
+                  Text("Primary"),
+                  Text("number:"),
                   Text(primary.number),
-                  Text("Call us at (toll free)"),
+                  Text("number-tollfree"),
                   Text(primary.numberTollFree),
+                  Text("other handles:"),
+                  IconButton(
+                      icon: Icon(Icons.email),
+                      onPressed: () async {
+                        await launch(primary.email);
+                      }),
                   Text(primary.email),
                   Text(primary.twitter),
                   Text(primary.facebook),
                   Text(primary.media),
-                  JsonTable(contact.regional),
-//                ListView.builder(
-//                  shrinkWrap: true,
-//                  itemCount: contact.regional.length,
-//                  itemBuilder: (context, index) {
-//                    return Text(contact.regional[index]["loc"]);
-//                  },
-//                )
+                  Container(
+                      color: Colors.white,
+                      child: JsonTable(contact.regional,
+                          tableCellBuilder: (value) {
+                        return Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 4.0, vertical: 2.0),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 0.5,
+                                    color: Colors.grey.withOpacity(0.5))),
+                            child: Text(
+                              value,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.blue[500]),
+                            ));
+                      }))
                 ],
               ),
             ),
