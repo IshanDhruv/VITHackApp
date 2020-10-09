@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/ishan/AndroidStudioProjects/parkinson_detection/lib/screens/home/contact_page.dart';
+//import 'file:///C:/Users/ishan/AndroidStudioProjects/parkinson_detection/lib/screens/home/contact_page.dart';
 import 'package:parkinsons_detection_app/screens/home/notification_page.dart';
 import 'package:parkinsons_detection_app/screens/hospitals/hospitals.dart';
+
+import 'contact_page.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -38,9 +40,9 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.apartment_outlined), label: "Hospitals"),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: "Notifications"),
-          BottomNavigationBarItem(icon: Icon(Icons.info), label: "Contact Us")
+          BottomNavigationBarItem(icon: Icon(Icons.local_hospital), title: Text("Hospitals")),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications), title: Text("Notifications")),
+          BottomNavigationBarItem(icon: Icon(Icons.info), title: Text("Contact Us"))
         ],
         currentIndex: _selectedIndex,
         onTap: _onTapped,
