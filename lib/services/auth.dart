@@ -42,8 +42,6 @@ class AuthService {
         verificationCompleted: (PhoneAuthCredential credential) async {
           print("verified");
           user.linkWithCredential(credential);
-//          prefs = await SharedPreferences.getInstance();
-//          prefs.setBool("phoneVerified", true);
           return _userFromFirebaseUser(user);
         },
         verificationFailed: (FirebaseAuthException e) {
@@ -60,7 +58,9 @@ class AuthService {
 
   Future signOut() async {
     try {
-      return await _auth.signOut();
+      await _auth.signOut();
+      SharedPreferences _prefs = await SharedPreferences.getInstance();
+      _prefs.setBool('detailsSubmitted', false);
     } catch (e) {
       print(e);
       return null;

@@ -30,7 +30,7 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: _deviceHeight * 0.1),
-            Center(child: Text(user.displayName)),
+            Center(child: Text(user.displayName ?? "User_Name")),
             Center(child: Text(user.email)),
             SizedBox(height: 40),
             ExpansionTileCard(

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:parkinsons_detection_app/screens/authenticate/phone_screen.dart';
+import 'package:parkinsons_detection_app/screens/info/info_page.dart';
 import 'package:parkinsons_detection_app/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -13,19 +14,20 @@ class Wrapper extends StatefulWidget {
 }
 
 class _WrapperState extends State<Wrapper> {
-  bool _isOTPVerified = true;
+  bool _detailsSubmitted = true;
   AuthService _auth = AuthService();
   SharedPreferences _prefs;
 
   @override
   void initState() {
-//    checkIfVerified();
+    checkIfSubmitted();
     super.initState();
   }
 
-  checkIfVerified() async {
+  Future checkIfSubmitted() async {
     _prefs = await SharedPreferences.getInstance();
-    _isOTPVerified = _prefs.getBool('phoneVerified');
+    _detailsSubmitted = _prefs.getBool('detailsSubmitted');
+    print(_detailsSubmitted);
   }
 
   @override
@@ -34,6 +36,6 @@ class _WrapperState extends State<Wrapper> {
     if (user == null)
       return Authenticate();
     else
-      return HomePage();
+      return _detailsSubmitted != true ? InfoPage() : HomePage();
   }
 }

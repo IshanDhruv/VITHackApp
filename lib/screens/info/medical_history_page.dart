@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:parkinsons_detection_app/screens/home/home_page.dart';
 import 'package:parkinsons_detection_app/screens/profile/profile_page.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MedicalHistoryPage extends StatefulWidget {
   @override
@@ -41,8 +43,14 @@ class _MedicalHistoryPageState extends State<MedicalHistoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    User user;
 
-    final user = Provider.of<User>(context);
+    try{
+      user = Provider.of<User>(context);
+    }catch(e){
+      print(e);
+    }
+
 
     return Container(
       margin: EdgeInsets.all(20),
@@ -123,7 +131,7 @@ class _MedicalHistoryPageState extends State<MedicalHistoryPage> {
   }
 
   void showBottomPanel(User user) {
-    //Creates bottom sheet for user to enter his data
+    print(user.email);
     showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -145,11 +153,13 @@ class _MedicalHistoryPageState extends State<MedicalHistoryPage> {
                     RaisedButton(child: Text("Go Back"), onPressed: () {}),
                     RaisedButton(
                         child: Text("Yes, Confirm"),
-                        onPressed: () {
+                        onPressed: () async {
+                          SharedPreferences _prefs = await SharedPreferences.getInstance();
+                          _prefs.setBool('detailsSubmitted', true);
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ProfilePage(user: user,)));
+                                  builder: (context) => HomePage(user : user)));
                         }),
                   ],
                 )
