@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:parkinsons_detection_app/screens/home/contact_new.dart';
+import 'package:parkinsons_detection_app/screens/home/notification_new.dart';
 //import 'file:///C:/Users/ishan/AndroidStudioProjects/parkinson_detection/lib/screens/home/contact_page.dart';
 import 'package:parkinsons_detection_app/screens/home/notification_page.dart';
 import 'package:parkinsons_detection_app/screens/hospitals/hospitals.dart';
+
 
 import 'contact_page.dart';
 
@@ -25,8 +28,8 @@ class _HomePageState extends State<HomePage> {
 
     List<Widget> _widgetOptions = <Widget>[
       HospitalsPage(),
-      NotificationPage(),
-      ContactPage()
+      NotificationNew(),
+      ContactNew()
     ];
 
     void _onTapped(int index) {
