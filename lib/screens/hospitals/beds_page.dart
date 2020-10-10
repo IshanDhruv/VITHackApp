@@ -43,16 +43,6 @@ class _BedsPageState extends State<BedsPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(),
-                  Row(
-                    children: [
-                      Text(beds.summary['ruralHospitals'].toString()),
-                      Text(beds.summary['ruralBeds'].toString()),
-                      Text(beds.summary['urbanHospitals'].toString()),
-                      Text(beds.summary['urbanBeds'].toString()),
-                      Text(beds.summary['totalHospitals'].toString()),
-                      Text(beds.summary['totalBeds'].toString()),
-                    ],
-                  ),
                   Container(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),

@@ -82,4 +82,19 @@ class APICalls {
       print(e);
     }
   }
+
+  getCovidCases() async {
+    print("getting cases");
+    final url = 'https://covid19-vithack.herokuapp.com/posts';
+    try {
+      final response =
+          await http.get(url, headers: {"Accept": "application/json"});
+      switch (response.statusCode) {
+        case 200:
+          return response.body;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }
