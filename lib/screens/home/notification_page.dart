@@ -41,7 +41,39 @@ class _NotificationPageState extends State<NotificationPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(),
-                  JsonTable(notification.notifications),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Container(
+                      child: JsonTable(notification.notifications,
+                          tableHeaderBuilder: (String header) {
+                        return Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.lightBlue[300].withOpacity(1),
+                          ),
+                          child: Text(header.toUpperCase(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.grey[800],
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold)),
+                        );
+                      }, tableCellBuilder: (value) {
+                        return Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            decoration: BoxDecoration(
+                                border: Border.symmetric(
+                                    horizontal: BorderSide(width: 0.1))),
+                            child: Text(
+                              value,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  color: Colors.blue[500], fontSize: 16),
+                            ));
+                      }),
+                    ),
+                  ),
                 ],
               ),
             ),
