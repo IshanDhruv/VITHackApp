@@ -112,7 +112,7 @@ class _ContactNewState extends State<ContactNew> {
                     //background color of box
                     BoxShadow(
                       color: Colors.grey[600],
-                      blurRadius: 15.0, // soften the shadow
+                      blurRadius: 5.0, // soften the shadow
                       spreadRadius: 1.0, //extend the shadow
                       offset: Offset(
                         4.0, // Move to right 10  horizontally
@@ -121,7 +121,7 @@ class _ContactNewState extends State<ContactNew> {
                     ),
                     BoxShadow(
                       color: Colors.white,
-                      blurRadius: 15.0, // soften the shadow
+                      blurRadius: 5.0, // soften the shadow
                       spreadRadius: 1.0, //extend the shadow
                       offset: Offset(
                         -4.0, // Move to right 10  horizontally
@@ -213,7 +213,7 @@ Widget header(BuildContext context, Primary primary) {
     child: Stack(
       children: <Widget>[
         Positioned(
-          left: width*0.1,
+          left: width*0.3,
           top: 0,
           child: SvgPicture.asset(
             "assets/graphics/text-01.svg",
