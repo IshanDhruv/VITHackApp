@@ -4,7 +4,6 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:json_table/json_table.dart';
-//import 'package:parkinsons_detection_app/models/notification.dart';
 import 'package:parkinsons_detection_app/services/api_calls.dart';
 import 'package:parkinsons_detection_app/models/contact.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -47,10 +46,11 @@ class _ContactNewState extends State<ContactNew> {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(height*0.04),
-              child: AppBar(
+        preferredSize: Size.fromHeight(height * 0.04),
+        child: AppBar(
           elevation: 0,
-          backgroundColor: Color(0xFFF5F4EF),
+          backgroundColor:Colors.grey[100], 
+          // Color(0xFFF5F4EF),
           leading: IconButton(
             onPressed: () {
               //Navigator.pushNamed(context, Explore.id);
@@ -62,28 +62,30 @@ class _ContactNewState extends State<ContactNew> {
           ),
         ),
       ),
-      body: Container(
+      body: _isLoading == true?Container(
+        color:Colors.grey[100], 
+        // Color(0xFFF5F4EF),
+        child: 
+      Center(
+        child: CircularProgressIndicator())): Container(
         width: double.infinity,
         height: height,
         decoration: BoxDecoration(
-          color: Color(0xFFF5F4EF),
+          color:Colors.grey[100], 
+          // Color(0xFFF5F4EF),
         ),
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(left: 20, top: height*0.02, right: 20),
+              padding: EdgeInsets.only(left: 20, top: height * 0.02, right: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[],
               ),
             ),
-            //SizedBox(height: 60),
-            header(context, primary),
 
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [],
-            ),
+            headerContacts(context, primary),
+
             Expanded(
               child: Container(
                 width: double.infinity,
@@ -156,43 +158,51 @@ class _ContactNewState extends State<ContactNew> {
                       // ),
                       SizedBox(height: 20),
 
-                      Container(
-                          // height: 200,
-                          // width: 200,
-                          color: Colors.transparent,
-                          // curveType: CurveType.convex,
-                          //width: width*0.5,
-                          child: JsonTable(contact.regional,
-                              tableHeaderBuilder: (String header) {
-                            return Container(
-                              height: 50,
-                              width: width/2.2,
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: Colors.grey[400].withOpacity(0.5),
-                              ),
-                              child: Text(header.toUpperCase(),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Colors.grey[800],
-                                      fontSize:18,
-                                      fontWeight: FontWeight.bold)),
-                            );
-                          }, tableCellBuilder: (value) {
-                            return Container(
+                      Center(
+                        child: ClipRRect(
+                          
+                          borderRadius: BorderRadius.only(topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30)
+
+                          ),
+                            // height: 200,
+                            // width: 200,
+                           
+                            // curveType: CurveType.convex,
+                            //width: width*0.5,
+                            child: JsonTable(contact.regional,
+                                tableHeaderBuilder: (String header) {
+                              return Container(
                                 height: 50,
-                                width: width/2.2,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 10),
+                                width: width / 2.2,
+                                padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                    border: Border.symmetric(
-                                        horizontal: BorderSide(width: 0.1))),
-                                child: Text(
-                                  value,
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(color: Colors.black),
-                                ));
-                          })),
+                                  color: Colors.grey[400].withOpacity(0.5),
+                                  
+                                ),
+                                child: Text(header.toUpperCase(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.grey[800],
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold)),
+                              );
+                            }, tableCellBuilder: (value) {
+                              return Container(
+                                  height: 50,
+                                  width: width / 2.2,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 10),
+                                  decoration: BoxDecoration(
+                                      border: Border.symmetric(
+                                          horizontal: BorderSide(width: 0.1))),
+                                  child: Text(
+                                    value,
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(color: Colors.black),
+                                  ));
+                            })),
+                      ),
                     ],
                   ),
                 ),
@@ -205,7 +215,7 @@ class _ContactNewState extends State<ContactNew> {
   }
 }
 
-Widget header(BuildContext context, Primary primary) {
+Widget headerContacts(BuildContext context, Primary primary) {
   final height = MediaQuery.of(context).size.height;
   final width = MediaQuery.of(context).size.width;
   return Positioned(
@@ -213,7 +223,7 @@ Widget header(BuildContext context, Primary primary) {
     child: Stack(
       children: <Widget>[
         Positioned(
-          left: width*0.3,
+          left: width * 0.3,
           top: 0,
           child: SvgPicture.asset(
             "assets/graphics/text-01.svg",
@@ -224,7 +234,7 @@ Widget header(BuildContext context, Primary primary) {
           //left: 105,
           top: -30,
           child: Container(
-            height: height*0.4,
+            height: height * 0.4,
             width: width,
             // color: Colors.white.withAlpha(100),
 
@@ -236,9 +246,9 @@ Widget header(BuildContext context, Primary primary) {
                 stops: [0.5, 0.6, 0.8],
                 colors: [
                   //Colors.white.withAlpha(150),
-                  Color(0xFFF5F4EF).withAlpha(10),
-                  Color(0xFFF5F4EF).withAlpha(80),
-                  Color(0xFFF5F4EF).withAlpha(230),
+                  Colors.grey[100].withAlpha(10),
+                  Colors.grey[100].withAlpha(80),
+                  Colors.grey[100].withAlpha(230),
                   //Colors.white.withAlpha(220),
                 ],
               ),
@@ -268,8 +278,8 @@ Widget header(BuildContext context, Primary primary) {
           ),
         ),
         Positioned(
-          top: height*0.13,
-          left: width*0.04,
+          top: height * 0.13,
+          left: width * 0.04,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -284,13 +294,13 @@ Widget header(BuildContext context, Primary primary) {
                       onPressed: () async {
                         await launch(primary.email);
                       }),
-                      IconButton(
+                  IconButton(
                       // icon: SvgPicture.asset("assets/icons/facebook-app-logo.svg", height: 20,),
                       icon: Icon(FlutterIcons.facebook_box_mco),
                       onPressed: () async {
                         await launch(primary.facebook);
                       }),
-                      IconButton(
+                  IconButton(
                       icon: Icon(FlutterIcons.twitter_box_mco),
                       onPressed: () async {
                         await launch(primary.twitter);
