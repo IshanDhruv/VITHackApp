@@ -53,9 +53,39 @@ class _BedsPageState extends State<BedsPage> {
                       Text(beds.summary['totalBeds'].toString()),
                     ],
                   ),
-                  JsonTable(
-                    regionalJson,
-                    showColumnToggle: true,
+                  Container(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: JsonTable(regionalJson, showColumnToggle: true,
+                          tableHeaderBuilder: (String header) {
+                        return Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[100],
+                          ),
+                          child: Text(header.toUpperCase(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.grey[800],
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold)),
+                        );
+                      }, tableCellBuilder: (value) {
+                        return Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            decoration: BoxDecoration(
+                                border: Border.symmetric(
+                                  
+                                    horizontal: BorderSide(width: 0.1))),
+                            child: Text(
+                              value,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  color: Colors.blue[500], fontSize: 16),
+                            ));
+                      }),
+                    ),
                   ),
                 ],
               ),

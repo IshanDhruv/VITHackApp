@@ -4,39 +4,39 @@ import 'package:flutter_icons/flutter_icons.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:json_table/json_table.dart';
+import 'package:parkinsons_detection_app/models/beds.dart';
 import 'package:parkinsons_detection_app/models/notification.dart';
 //import 'package:parkinsons_detection_app/models/notification.dart';
 import 'package:parkinsons_detection_app/services/api_calls.dart';
 import 'package:parkinsons_detection_app/widgets/header.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class NotificationNew extends StatefulWidget {
+class BedsNew extends StatefulWidget {
   static String id = "details";
 
   @override
-  _NotificationNewState createState() => _NotificationNewState();
+  _BedsNewState createState() => _BedsNewState();
 }
 
-class _NotificationNewState extends State<NotificationNew>{
+class _BedsNewState extends State<BedsNew>{
   APICalls apiCalls = APICalls();
-  NotificationClass notification;
+  Beds beds;
   bool _isLoading = true;
-  // TabController _controller;
+  List regionalJson = [];
+  List summary = [];
 
   @override
   void initState() {
-    getNotifications();
+    getBeds();
     super.initState();
-    //  _controller = new TabController(length: 2, vsync: this);
   }
 
-
-  getNotifications() async {
+  getBeds() async {
     setState(() {
       _isLoading = true;
     });
-    notification = await apiCalls.getNotifications();
-    print(notification.notifications[0]['title']);
+    beds = await apiCalls.getBeds();
+    regionalJson = beds.regional;
     setState(() {
       _isLoading = false;
     });
@@ -47,25 +47,7 @@ class _NotificationNewState extends State<NotificationNew>{
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(height * 0.04),
-        child: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.grey[100],
-          //Color(0xFFF5F4EF),
-          leading: IconButton(
-            onPressed: () {
-              //Navigator.pushNamed(context, Explore.id);
-            },
-            icon: Icon(
-              MaterialCommunityIcons.chevron_left,
-              color: Colors.black,
-            ),
-          ),
-        ),
-      ),
-      body: _isLoading == true
+    return  _isLoading == true
           ? Container(
               color: Colors.grey[100],
               //Color(0xFFF5F4EF),
@@ -93,8 +75,8 @@ class _NotificationNewState extends State<NotificationNew>{
                   //SizedBox(height: 60),
                   Header(
                     path: "assets/graphics/text-01.svg",
-                    line1: "Notifications",
-                    line2: "Advisories",
+                    line1: "Hospitals",
+                    line2: "Beds",
                   ),
 
                   Column(
@@ -197,48 +179,45 @@ class _NotificationNewState extends State<NotificationNew>{
 
             //                     ],),
             //                 ),
-                            SizedBox(height: 10),
+                            // SizedBox(height: 10),
 
                             Center(
                               child: ClipRRect(
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(50),
                                     topRight: Radius.circular(50)),
-                                child: JsonTable(notification.notifications,
-                                paginationRowCount: 8,
-                                    tableHeaderBuilder: (String header) {
-                                  return Container(
-                                    height: height * 0.06,
-                                    width: width / 2.2,
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey[300].withOpacity(1),
-                                    ),
-                                    child: Text(header.toUpperCase(),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.grey[800],
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold)),
-                                  );
-                                }, tableCellBuilder: (value) {
-                                  return Container(
-                                      height: height * 0.15,
-                                      width: width / 2.2,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10, vertical: 10),
-                                      decoration: BoxDecoration(
-                                          border: Border.symmetric(
-                                              horizontal:
-                                                  BorderSide(width: 0.1))),
-                                      child: Text(
-                                        value,
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            color: Colors.blue[500],
-                                            fontSize: 16),
-                                      ));
-                                }),
+                                child: JsonTable(regionalJson, showColumnToggle: true,
+                          tableHeaderBuilder: (String header) {
+                        return Container(
+                          width: width/2.2,
+                          height: height*0.06,
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                          ),
+                          child: Text(header.toUpperCase(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.grey[800],
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold)),
+                        );
+                      }, tableCellBuilder: (value) {
+                        return Container(
+                          width: width/3,
+                          height: height*0.06,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            decoration: BoxDecoration(
+                                border: Border.symmetric(
+                                    horizontal: BorderSide(width: 0.1, color: Colors.purple))),
+                            child: Text(
+                              value,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  color: Colors.blue[500], fontSize: 16),
+                            ));
+                      }),
                               ),
                             ),
                           ],
@@ -248,7 +227,6 @@ class _NotificationNewState extends State<NotificationNew>{
                   ),
                 ],
               ),
-            ),
     );
   }
 }

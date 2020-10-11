@@ -36,7 +36,10 @@ dependencies:
   clay_containers: ^0.2.2
   flutter_icons: ^1.1.0
   google_fonts: ^1.1.0
-  expandable: ^4.1.4
+  page_indicator:
+  collection:
+  charts_flutter:
+  syncfusion_flutter_charts: ^18.3.38
 
 
   # The following adds the Cupertino Icons font to your application.

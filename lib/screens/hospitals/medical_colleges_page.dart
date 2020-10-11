@@ -53,22 +53,59 @@ class _MedicalCollegesPageState extends State<MedicalCollegesPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(),
-                  DropdownButton(
-                    value: state,
-                    onChanged: (val) {
-                      setState(() {
-                        state = val;
-                        collegesJson = colleges.where((element) => element['state'] == state);
-                      });
-                    },
-                    items: states.map((sstate) {
-                      return DropdownMenuItem(
-                        child: new Text(sstate),
-                        value: sstate,
-                      );
-                    }).toList(),
-                  ),
-                  JsonTable(colleges)
+//                  DropdownButton(
+//                    value: state,
+//                    onChanged: (val) {
+//                      setState(() {
+//                        state = val;
+//                        collegesJson = colleges
+//                            .where((element) => element['state'] == state);
+//                      });
+//                    },
+//                    items: states.map((sstate) {
+//                      return DropdownMenuItem(
+//                        child: new Text(sstate),
+//                        value: sstate,
+//                      );
+//                    }).toList(),
+//                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Container(
+                      child: JsonTable(
+
+                        colleges,
+                        paginationRowCount: 10,
+                          tableHeaderBuilder: (String header) {
+                        return Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.lightBlue[300].withOpacity(1),
+                          ),
+                          child: Text(header.toUpperCase(),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: Colors.grey[800],
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold)),
+                        );
+                      }, tableCellBuilder: (value) {
+                        return Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            decoration: BoxDecoration(
+                                border: Border.symmetric(
+                                    horizontal: BorderSide(width: 0.1))),
+                            child: Text(
+                              value,
+                              textAlign: TextAlign.start,
+                              maxLines: 1,
+                              style: TextStyle(
+                                  color: Colors.blue[500], fontSize: 16),
+                            ));
+                      }),
+                    ),
+                  )
 //                  ListView.builder(
 //                    shrinkWrap: true,
 //                    physics: PageScrollPhysics(),
