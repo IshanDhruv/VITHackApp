@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
            BottomNavigationBarItem(icon: Icon(FlutterIcons.bar_chart_faw), title: Text("Graphs")),
           BottomNavigationBarItem(icon: Icon(Icons.local_hospital), title: Text("Hospitals")),
           BottomNavigationBarItem(icon: Icon(Icons.notifications), title: Text("Notifications")),
-          BottomNavigationBarItem(icon: Icon(Icons.info), title: Text("Contact Us"))
+          BottomNavigationBarItem(icon: Icon(Icons.info), title: Text("Contacts"))
         ],
         currentIndex: _selectedIndex,
         onTap: _onTapped,

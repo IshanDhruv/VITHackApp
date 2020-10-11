@@ -74,7 +74,8 @@ class _BedsNewState extends State<BedsNew>{
                   ),
                   //SizedBox(height: 60),
                   Header(
-                    path: "assets/graphics/text-01.svg",
+                    path: "assets/graphics/hospital-01.svg",
+                    heightSvg: height*0.28,
                     line1: "Hospitals",
                     line2: "Beds",
                   ),
@@ -188,19 +189,19 @@ class _BedsNewState extends State<BedsNew>{
                                     topRight: Radius.circular(50)),
                                 child: JsonTable(regionalJson, showColumnToggle: true,
                           tableHeaderBuilder: (String header) {
-                        return Container(
+                        return ClayContainer(
+                          spread: 10,
                           width: width/2.2,
                           height: height*0.06,
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                          ),
-                          child: Text(header.toUpperCase(),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.grey[800],
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold)),
+                          
+                          child: Center(
+                            child: ClayText(header.toUpperCase(),
+                                emboss: true,
+                                style: GoogleFonts.montserrat(
+                                              textStyle: TextStyle(
+                                                color: Colors.grey[800],
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w500)),),),
                         );
                       }, tableCellBuilder: (value) {
                         return Container(
@@ -214,8 +215,11 @@ class _BedsNewState extends State<BedsNew>{
                             child: Text(
                               value,
                               textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  color: Colors.blue[500], fontSize: 16),
+                             style: GoogleFonts.montserrat(
+                                              textStyle: TextStyle(
+                                                color: Colors.grey[700],
+                                                fontSize: 14.5,
+                                                fontWeight: FontWeight.w400)),
                             ));
                       }),
                               ),

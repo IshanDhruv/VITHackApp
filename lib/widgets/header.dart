@@ -49,9 +49,9 @@ class Header extends StatelessWidget {
                     colors: [
                       //Colors.white.withAlpha(150),
                       Colors.grey[100].withAlpha(10),
-                      Colors.grey[100].withAlpha(80),
-                      Colors.grey[100].withAlpha(150),
-                      Colors.grey[100].withAlpha(230),
+                      Colors.grey[100].withAlpha(60),
+                      Colors.grey[100].withAlpha(130),
+                      Colors.grey[100].withAlpha(210),
                       //Colors.white.withAlpha(220),
                     ],
                   ),
@@ -67,28 +67,34 @@ class Header extends StatelessWidget {
                 children: [
                   Text(
                     "$line1",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 30,
-                    ),
+                   style: GoogleFonts.montserrat(
+                                            textStyle: TextStyle(
+                                              color: Colors.grey[700],
+                                              fontSize: 35,
+                                              fontWeight: FontWeight.w500))
                   ),
                   Text(
                     "&",
                     style: GoogleFonts.montserrat(
-                      fontSize: 30,
-                    ),
+                                            textStyle: TextStyle(
+                                              color: Colors.grey[700],
+                                              fontSize: 35,
+                                              fontWeight: FontWeight.w500))
                   ),
                   Text(
                     "$line2",
                     style: GoogleFonts.montserrat(
-                      fontSize: 30,
-                    ),
+                                            textStyle: TextStyle(
+                                              color: Colors.grey[700],
+                                              fontSize: 35,
+                                              fontWeight: FontWeight.w500))
                   ),
                 ],
               ),
             ),
             Positioned(
               child: Container(
-                height: height * 0.2,
+                height: height * 0.25,
                 width: double.infinity,
               ),
             ),

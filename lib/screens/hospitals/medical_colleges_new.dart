@@ -85,7 +85,8 @@ class _MedicalCollegesNewState extends State<MedicalCollegesNew>{
                   ),
                   //SizedBox(height: 60),
                   Header(
-                    path: "assets/graphics/text-01.svg",
+                    path: "assets/graphics/medschool-01.svg",
+                    heightSvg: height*0.28,
                     line1: "Med Colleges",
                     line2: "Beds",
                   ),
@@ -200,22 +201,23 @@ class _MedicalCollegesNewState extends State<MedicalCollegesNew>{
                                 child: JsonTable(
 
                         colleges,
+                        showColumnToggle: true,
                         paginationRowCount: 10,
                           tableHeaderBuilder: (String header) {
-                        return Container(
-                          height: height*0.06,
+                        return ClayContainer(
+                          height: height*0.065,
                           width: width/3,
+                          spread: 10,
                           
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300].withOpacity(1),
+                          child: Center(
+                            child: ClayText(header.toUpperCase(),
+                                emboss: true,
+                                style: GoogleFonts.montserrat(
+                                              textStyle: TextStyle(
+                                                color: Colors.grey[700],
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w400)),),
                           ),
-                          child: Text(header.toUpperCase(),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.grey[800],
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold)),
                         );
                       }, tableCellBuilder: (value) {
                         return Container(
@@ -230,8 +232,11 @@ class _MedicalCollegesNewState extends State<MedicalCollegesNew>{
                               value,
                               textAlign: TextAlign.start,
                               maxLines: 1,
-                              style: TextStyle(
-                                  color: Colors.blue[500], fontSize: 16),
+                               style: GoogleFonts.montserrat(
+                                              textStyle: TextStyle(
+                                                color: Colors.grey[700],
+                                                fontSize: 14.5,
+                                                fontWeight: FontWeight.w400)),
                             ));
                       }),
                               ),

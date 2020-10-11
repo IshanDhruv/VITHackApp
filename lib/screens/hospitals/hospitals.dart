@@ -23,7 +23,6 @@ class _HospitalsPageState extends State<HospitalsPage> {
           child: AppBar(
             backgroundColor: Colors.grey[100],
             elevation: 0,
-            title: Text("Hospitals"),
             bottom: TabBar(
                 isScrollable: true,
                 indicatorColor: Colors.black,
