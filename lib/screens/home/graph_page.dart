@@ -1,10 +1,16 @@
 import 'dart:convert';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:parkinsons_detection_app/models/covid_case.dart';
 import 'package:parkinsons_detection_app/services/api_calls.dart';
 import 'package:collection/collection.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class GraphPage extends StatefulWidget {
   @override
@@ -12,6 +18,7 @@ class GraphPage extends StatefulWidget {
 }
 
 class _GraphPageState extends State<GraphPage> {
+  GlobalKey _globalKey = GlobalKey();
   List<CovidCase> cases = List(30000);
   List states = [];
   Map caseData;
@@ -21,6 +28,30 @@ class _GraphPageState extends State<GraphPage> {
   void initState() {
     getCovidCases();
     super.initState();
+  }
+
+  Future<void> _save() async {
+    RenderRepaintBoundary boundary =
+        _globalKey.currentContext.findRenderObject();
+    ui.Image image = await boundary.toImage();
+    ByteData byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    Uint8List pngBytes = byteData.buffer.asUint8List();
+
+    //Request permissions if not already granted
+    if (!(await Permission.storage.status.isGranted))
+      await Permission.storage.request();
+
+    final result = await ImageGallerySaver.saveImage(
+        Uint8List.fromList(pngBytes),
+        quality: 60,
+        name: "canvas_image");
+    Fluttertoast.showToast(
+      msg: "Image is stored at " + result,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 5,
+    );
+    print(result);
   }
 
   getCovidCases() async {
@@ -59,7 +90,14 @@ class _GraphPageState extends State<GraphPage> {
       future: getCovidCases(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done)
-          return createChart();
+          return Scaffold(
+              floatingActionButton: FloatingActionButton(
+                child: Icon(Icons.download_rounded),
+                onPressed: () async {
+                  _save();
+                },
+              ),
+              body: RepaintBoundary(key: _globalKey, child: createChart()));
         else
           return Center(child: CircularProgressIndicator());
       },

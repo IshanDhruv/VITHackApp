@@ -40,6 +40,10 @@ dependencies:
   expandable: ^4.1.4
   page_indicator:
   collection:
+  permission_handler: ^5.0.1+1
+  image_gallery_saver: ^1.5.0
+  fluttertoast: 7.1.1
+  syncfusion_flutter_charts: ^18.3.38
 
 
   # The following adds the Cupertino Icons font to your application.
