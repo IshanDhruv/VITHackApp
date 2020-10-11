@@ -76,7 +76,6 @@ class _BedsPageState extends State<BedsPage> {
                                 horizontal: 10, vertical: 10),
                             decoration: BoxDecoration(
                                 border: Border.symmetric(
-                                  
                                     horizontal: BorderSide(width: 0.1))),
                             child: Text(
                               value,

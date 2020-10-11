@@ -3,15 +3,15 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:parkinsons_detection_app/screens/home/contact_new.dart';
 import 'package:parkinsons_detection_app/screens/home/graph_page.dart';
 import 'package:parkinsons_detection_app/screens/home/notification_new.dart';
-//import 'file:///C:/Users/ishan/AndroidStudioProjects/parkinson_detection/lib/screens/home/contact_page.dart';
 import 'package:parkinsons_detection_app/screens/home/notification_page.dart';
 import 'package:parkinsons_detection_app/screens/hospitals/hospitals.dart';
+import 'contact_page.dart';
+import 'graph_page.dart';
 
 
 import 'contact_page.dart';
 
 class HomePage extends StatefulWidget {
-
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     List<Widget> _widgetOptions = <Widget>[
       GraphPage(),
       HospitalsPage(),

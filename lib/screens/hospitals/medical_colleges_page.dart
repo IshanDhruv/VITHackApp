@@ -10,29 +10,25 @@ class MedicalCollegesPage extends StatefulWidget {
 
 class _MedicalCollegesPageState extends State<MedicalCollegesPage> {
   APICalls apiCalls = APICalls();
-  bool _isLoading = true;
   MedicalColleges medicalColleges;
-  List colleges;
-  List collegesJson;
+  List colleges = [];
+  List collegesJson = [];
   List states = ['Choose a state'];
   String state = 'Choose a state';
 
   @override
   void initState() {
-    getMedicalColleges();
+    //getMedicalColleges();
+//    print(colleges.length);
     super.initState();
   }
 
   getMedicalColleges() async {
-    setState(() {
-      _isLoading = true;
-    });
     medicalColleges = await apiCalls.getMedicalColleges();
     colleges = medicalColleges.medicalColleges;
+    collegesJson = colleges;
     getStates();
-    setState(() {
-      _isLoading = false;
-    });
+    return true;
   }
 
   getStates() {
@@ -44,9 +40,13 @@ class _MedicalCollegesPageState extends State<MedicalCollegesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return _isLoading == true
-        ? Center(child: CircularProgressIndicator())
-        : SingleChildScrollView(
+    return FutureBuilder(
+      future: getMedicalColleges(),
+      builder: (context, snapshot) {
+        if (snapshot.data == null)
+          return Center(child: CircularProgressIndicator());
+        else
+          return SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.all(10),
               child: Column(
@@ -106,19 +106,28 @@ class _MedicalCollegesPageState extends State<MedicalCollegesPage> {
                       }),
                     ),
                   )
-//                  ListView.builder(
-//                    shrinkWrap: true,
-//                    physics: PageScrollPhysics(),
-//                    itemCount: medicalColleges.medicalColleges.length,
-//                    itemBuilder: (context, index) {
-//                      if (colleges[index]['state'] == state)
-//                        return stateRow(state);
-//                      return Container();
-//                    },
-//                  )
                 ],
               ),
             ),
           );
+      },
+    );
+//    return _isLoading == true
+//        ? Center(child: CircularProgressIndicator())
+//        :
+  }
+
+  changeState(String val) {
+    setState(() {
+      state = val;
+      collegesJson.clear();
+      print(colleges.length);
+      for (int i = 0; i < colleges.length; i++) {
+        if (colleges[i]['state'] == state) {
+          collegesJson.add(colleges[i]);
+        }
+      }
+      print(collegesJson);
+    });
   }
 }

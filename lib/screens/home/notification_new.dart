@@ -1,11 +1,10 @@
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:json_table/json_table.dart';
 import 'package:parkinsons_detection_app/models/notification.dart';
-//import 'package:parkinsons_detection_app/models/notification.dart';
 import 'package:parkinsons_detection_app/services/api_calls.dart';
 import 'package:parkinsons_detection_app/widgets/header.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -244,4 +243,3 @@ class _NotificationNewState extends State<NotificationNew>{
     );
   }
 }
-
