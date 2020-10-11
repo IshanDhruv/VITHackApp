@@ -36,6 +36,9 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     PageController _pageController =
         PageController(initialPage: 0, keepPage: true);
     GlobalKey<PageContainerState> _pageKey = GlobalKey();
@@ -54,18 +57,18 @@ class _LandingPageState extends State<LandingPage> {
           children: <Widget>[
             Container(
               padding: EdgeInsets.all(20),
-              color: Colors.blue,
+              color: Color(0xffE28725),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
-                    'assets/graphics/text-01.svg',
-                    height: 200,
+                    'assets/graphics/landing-01.svg',
+                    width: width * 0.8,
                   ),
                   SizedBox(height: 50),
                   Text(
-                    "The first page is where we have implemented the custom API as a bar graph. It shows the covid tally per day.",
+                    "The Graphs tab implements our custom API to plot a bar graph. It shows the covid tally per day.",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                     textAlign: TextAlign.center,
                   ),
@@ -74,14 +77,14 @@ class _LandingPageState extends State<LandingPage> {
             ),
             Container(
               padding: EdgeInsets.all(20),
-              color: Colors.orange,
+              color: Color(0xff468AA3),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset('assets/graphics/text-01.svg', height: 200),
+                  SvgPicture.asset('assets/graphics/hospital-01.svg', height: height*0.4),
                   SizedBox(height: 50),
                   Text(
-                    "The second page is where you can find the beds and medical colleges data in tabular form. We have provided some filters to make searching easier.",
+                    "The 'Hospitals' tab contains the beds and medical colleges data in a paginated tabular form. Filters for columns make searching faster and easier.",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                     textAlign: TextAlign.center,
                   ),
@@ -90,14 +93,14 @@ class _LandingPageState extends State<LandingPage> {
             ),
             Container(
               padding: EdgeInsets.all(20),
-              color: Colors.green,
+              color: Colors.teal,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset('assets/graphics/text-01.svg', height: 200),
+                  SvgPicture.asset('assets/graphics/notifications-01.svg', height: height*0.4),
                   SizedBox(height: 50),
                   Text(
-                    "The third page is the notifications page where you can get all the latest updates.",
+                    "Get all the latest updates for COVID-19 in the notifications tab.",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                     textAlign: TextAlign.center,
                   ),
@@ -106,15 +109,15 @@ class _LandingPageState extends State<LandingPage> {
             ),
             Container(
               padding: EdgeInsets.all(20),
-              color: Colors.purple,
+              color: Color(0xffA41D37),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  SvgPicture.asset('assets/graphics/text-01.svg', height: 200),
+                  SvgPicture.asset('assets/graphics/contacts-02.svg', width: width*0.7),
                   SizedBox(height: 50),
                   Text(
-                    "Finally, the last page is the contact us page where you can find all the ways to contact the authorities.",
+                    "The contacts page is like a little handybook in your pocket that contains all the number of connecting to the authorities of your state.",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                     textAlign: TextAlign.center,
                   ),

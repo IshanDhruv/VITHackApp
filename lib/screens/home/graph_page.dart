@@ -93,7 +93,7 @@ class _GraphPageState extends State<GraphPage> {
         if (snapshot.connectionState == ConnectionState.done)
           return Scaffold(
               floatingActionButton: FloatingActionButton(
-                child: Icon(Icons.download_rounded),
+                child: Icon(Icons.file_download),
                 onPressed: () async {
                   _save();
                 },

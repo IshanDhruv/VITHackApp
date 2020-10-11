@@ -53,22 +53,29 @@ class _MedicalCollegesPageState extends State<MedicalCollegesPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(),
-                  DropdownButton(
-                    value: state,
-                    onChanged: (val) {
-                      changeState(val);
-                    },
-                    items: states.map((sstate) {
-                      return DropdownMenuItem(
-                        child: new Text(sstate),
-                        value: sstate,
-                      );
-                    }).toList(),
-                  ),
+//                  DropdownButton(
+//                    value: state,
+//                    onChanged: (val) {
+//                      setState(() {
+//                        state = val;
+//                        collegesJson = colleges
+//                            .where((element) => element['state'] == state);
+//                      });
+//                    },
+//                    items: states.map((sstate) {
+//                      return DropdownMenuItem(
+//                        child: new Text(sstate),
+//                        value: sstate,
+//                      );
+//                    }).toList(),
+//                  ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
-                      child: JsonTable(collegesJson, paginationRowCount: 50,
+                      child: JsonTable(
+
+                        colleges,
+                        paginationRowCount: 10,
                           tableHeaderBuilder: (String header) {
                         return Container(
                           padding: EdgeInsets.all(10),

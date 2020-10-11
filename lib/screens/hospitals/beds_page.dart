@@ -43,6 +43,16 @@ class _BedsPageState extends State<BedsPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(),
+                  Row(
+                    children: [
+                      Text(beds.summary['ruralHospitals'].toString()),
+                      Text(beds.summary['ruralBeds'].toString()),
+                      Text(beds.summary['urbanHospitals'].toString()),
+                      Text(beds.summary['urbanBeds'].toString()),
+                      Text(beds.summary['totalHospitals'].toString()),
+                      Text(beds.summary['totalBeds'].toString()),
+                    ],
+                  ),
                   Container(
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
@@ -51,7 +61,7 @@ class _BedsPageState extends State<BedsPage> {
                         return Container(
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: Colors.lightBlue[300].withOpacity(1),
+                            color: Colors.grey[100],
                           ),
                           child: Text(header.toUpperCase(),
                               textAlign: TextAlign.center,

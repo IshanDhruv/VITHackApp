@@ -82,7 +82,6 @@ class APICalls {
       print(e);
     }
   }
-
   getCovidCases() async {
     print("getting cases");
     final url = 'https://covid19-vithack.herokuapp.com/posts';
