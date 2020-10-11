@@ -11,6 +11,7 @@ import 'package:parkinsons_detection_app/models/covid_case.dart';
 import 'package:parkinsons_detection_app/services/api_calls.dart';
 import 'package:collection/collection.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class GraphPage extends StatefulWidget {
   @override
@@ -104,28 +105,17 @@ class _GraphPageState extends State<GraphPage> {
     );
   }
 
-  charts.Series<dynamic, String> createSeries(String id, int i) {
-    var a = charts.Series<dynamic, String>(
-        id: id,
-        colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-        domainFn: (entry, _) => entry.dateTime,
-        measureFn: (entry, _) => entry.cases,
-        data: casesData);
-    print(a);
-    return a;
-  }
-
   Widget createChart() {
-    List<charts.Series<dynamic, String>> seriesList = [];
-
-    print(seriesList);
-
-    for (int i = 0; i < casesData.length; i++) {
-      String id = 'WZG${i + 1}';
-      seriesList.add(createSeries(id, i));
-    }
-
-    return new charts.BarChart(seriesList);
+    return SfCartesianChart(
+      primaryXAxis: CategoryAxis(),
+      title: ChartTitle(text: 'Covid Cases'),
+      series: <ChartSeries<DataListEntry, String>>[
+        BarSeries(
+            dataSource: casesData,
+            xValueMapper: (DataListEntry entry, _) => entry.dateTime,
+            yValueMapper: (DataListEntry entry, _) => entry.cases),
+      ],
+    );
   }
 }
 
